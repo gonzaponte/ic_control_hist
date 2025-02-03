@@ -17,7 +17,7 @@ def get_all_files(temp_dir, city):
     Takes a path and gets all the files
     '''
     all_files = glob.glob(os.path.expandvars(temp_dir.format(city = city)))
-    all_files = sorted(all_files, key = get_file_number)
+    all_files = sorted(all_files)
     return all_files
 
 def get_files_contents(all_files, group, table):
