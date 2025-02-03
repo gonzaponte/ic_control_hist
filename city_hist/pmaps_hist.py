@@ -16,7 +16,7 @@ def get_signal_pmaps(files, signal):
     Get pmaps files + compute some required variables
     '''
     S_pmaps = get_files_contents(files, 'PMAPS', signal)
-    S_pmaps = S_pmaps.merge(S_pmaps.groupby('event').apply(lambda x: 
+    S_pmaps = S_pmaps.merge(S_pmaps.groupby('event').apply(lambda x:
                                                            x.time.values[-1] - x.time.values[0]).reset_index(name = 'tot_time'),
                                                            on = 'event')
     S_pmaps['time_new'] = S_pmaps.groupby('event').apply(lambda x:
@@ -62,7 +62,8 @@ def pmaps_file_writer(files_path, out_path, city = 'hypathia', tag = '', xrange 
 
     This includes all the histograms for hypathia
     '''
-    files = get_all_files(files_path, city)
+    files = get_all_files(files_path, city)[:20]
+
     #S1
     S1_e, S1_total_e, S1_t, S1_total_t, S1_t_weight_e = pmaps_signal_histograms(files,
                                                                                     'S1',
@@ -113,4 +114,3 @@ def pmaps_file_writer(files_path, out_path, city = 'hypathia', tag = '', xrange 
         dio.df_writer(h5out, S2_e_Si,         city + tag, 'S2_e_Si',         descriptive_string = '')
         dio.df_writer(h5out, S2_total_e_Si,   city + tag, 'S2_total_e_Si',   descriptive_string = '')
         dio.df_writer(h5out, S2_Si_weight_e,  city + tag, 'S2_Si_weight_e',  descriptive_string = '')
-
