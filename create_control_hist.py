@@ -23,6 +23,7 @@ from city_hist.deco_hist   import deco_file_writer
 
 #NEEDED VARIABLES
 tag = 'v2.1.0' #kind of data in the files
+tag = 'masking' #kind of data in the files
 data_path = f'/analysis/14776/hdf5/prod/{tag}/20241114/irene/trigger0/' #path to cities folders containing data
 #cities forlders should be in lower case: hypathia, penthesilea/sophronia, esmeralda, beersheba, isaura
 is_refactor = True #asks if the production is the new or the old
