@@ -22,21 +22,21 @@ from city_hist.deco_hist   import deco_file_writer
 
 
 #NEEDED VARIABLES
-data_path = '/Users/mperez/NEXT/ic_dev/files/refactor_prod/' #path to cities folders containing data
+tag = 'v2.1.0' #kind of data in the files
+data_path = f'/analysis/14776/hdf5/prod/{tag}/20241114/irene/trigger0/' #path to cities folders containing data
 #cities forlders should be in lower case: hypathia, penthesilea/sophronia, esmeralda, beersheba, isaura
-tag = '228Th' #kind of data in the files
 is_refactor = True #asks if the production is the new or the old
-cities = ['esmeralda']
-out_file = 'hist_esm_n100.h5'
+cities = ['irene']
+out_file = f'hist.h5'
 
 
 #START
 #cities = [dir.split('/')[-1] for dir in glob.glob(data_path + '*')]
-files_path = data_path + '{city}/{city}_*_{tag}.h5'
-files_path = files_path.format(city = '{city}', tag = tag)
-out_path = data_path + out_file
+files_path = data_path + 'ldc1/*.h5'
+out_path  = data_path + out_file
 
 hist_dict = {'hypathia':    pmaps_file_writer,
+             'irene'      : pmaps_file_writer,
              'penthesilea': kdst_file_writer,
              'sophronia':   kdst_file_writer,
              'esmeralda':   (chits_file_writer, tracks_file_writer),
@@ -49,6 +49,9 @@ if __name__ == "__main__":
     #HYPATHIA
     if np.isin(cities, 'hypathia').any():
         hist_dict['hypathia'](files_path, out_path, city = 'hypathia')
+
+    if np.isin(cities, 'irene').any():
+        hist_dict['irene'](files_path, out_path, city = 'irene')
 
     #PENTHESILEA
     if np.isin(cities, 'penthesilea').any():

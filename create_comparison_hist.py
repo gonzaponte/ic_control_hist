@@ -21,34 +21,31 @@ from city_hist.tracks_hist import tracks_file_writer
 from city_hist.deco_hist   import deco_file_writer
 
 #NEEDED VARIABLES
-data_path = '/Users/mperez/NEXT/ic_dev/files/' #path to old and refactor prod
+data_path = '/analysis/14776/hdf5/prod/' #path to old and refactor prod
 
-old_path = data_path + 'old_prod/'
-ref_path = data_path + 'refactor_prod/'
+old_path = data_path +  'v2.1.0/20241114/'
+ref_path = data_path + 'masking/20241114/'
 
 #cities forlders should be in lower case: hypathia, penthesilea/sophronia, esmeralda, beersheba, isaura
-tag = '228Th' #kind of data in the files
-#for penthesilea we will replace when needed the word with sophronia
-cities = ['esmeralda']
+cities = ['irene']
 
 #FILE NAME FOR THE FIRST HISTOGRAMS
-hist_file = 'hist_{}_n100.h5' #str filled with first 3 letters of the correspondent city
+hist_file = 'hist.h5' #str filled with first 3 letters of the correspondent city
 old_hist = old_path + hist_file
 ref_hist = ref_path + hist_file
 
-out_file = '{}_comp_n100.h5'
+out_file = 'irene_comp.h5'
 
 
 #STARTUP
 #PICKING ALL THE FILES (OLD AND REFACTOR) TO RE-DO THE HISTOGRAMS
-old_files = old_path + '{city}/{city}_*_{tag}.h5'
-old_files = old_files.format(city = '{city}', tag = tag)
-ref_files = ref_path + '{city}/{city}_*_{tag}.h5'
-ref_files = ref_files.format(city = '{city}', tag = tag)
+old_files = old_path + '{city}/trigger0/ldc1/*.h5'
+ref_files = ref_path + '{city}/trigger0/ldc1/*.h5'
 
 out_path = data_path + out_file
 
 hist_dict = {'hypathia':    pmaps_file_writer,
+             'irene':    pmaps_file_writer,
              'penthesilea': kdst_file_writer,
              'sophronia':   kdst_file_writer,
              'esmeralda':   (chits_file_writer, tracks_file_writer),
@@ -56,14 +53,15 @@ hist_dict = {'hypathia':    pmaps_file_writer,
              'isaura':      tracks_file_writer}
 
 order_dict = {'hypathia':  hyp_order_list,
+              'irene':  ire_order_list,
               'penthesilea': pen_order_list, #same for sophronia
-              'esmeralda':esm_order_list, 
+              'esmeralda':esm_order_list,
               'beersheba':bee_order_list,
               'isaura':esm_order_list[19:]}
 
 #START OF THE SCRIPT
 if __name__ == "__main__":
-    
+
     #HYPATHIA
     if np.isin(cities, 'hypathia').any():
         #We read the statistics files and search for xlims that agree in both mirror histograms
@@ -74,6 +72,13 @@ if __name__ == "__main__":
         #We now recalculate with the new lims
         hist_dict['hypathia'](old_files, out_path, city = 'hypathia', tag = 'old', xrange = xlims)
         hist_dict['hypathia'](ref_files, out_path, city = 'hypathia', tag = 'ref', xrange = xlims)
+
+    if np.isin(cities, 'irene').any():
+        #We read the statistics files and search for xlims that agree in both mirror histograms
+        xlims = common_xlims(old_hist, ref_hist, order_dict['irene'])
+        #We now recalculate with the new lims
+        hist_dict['irene'](old_files, out_path, city = 'irene', tag = 'v2.1.0', xrange = xlims)
+        hist_dict['irene'](ref_files, out_path, city = 'irene', tag = 'masking', xrange = xlims)
 
     #PENTHESILEA / SOPHRONIA
     if np.isin(cities, 'penthesilea').any():
@@ -91,7 +96,7 @@ if __name__ == "__main__":
         ref_hist = ref_hist.format('esm')
         out_path = out_path.format('esm')
         xlims = common_xlims(old_hist, ref_hist, order_dict['esmeralda'])
-        
+
         #Careful here using the xlim because there are some lims for the chits part and some for the tracks one!
         hist_dict['esmeralda'][0](old_files, out_path, 'highTh', city = 'esmeralda', tag = 'old', xrange = xlims[0:18])
         hist_dict['esmeralda'][1](old_files, out_path, city = 'esmeralda', tag = 'old', xrange = xlims[18:])
@@ -120,4 +125,3 @@ if __name__ == "__main__":
 
         hist_dict['isaura'](old_files, out_path, city = 'isaura', tag = 'old', xrange = xlims)
         hist_dict['isaura'](ref_files, out_path, city = 'isaura', tag = 'ref', xrange = xlims)
-        

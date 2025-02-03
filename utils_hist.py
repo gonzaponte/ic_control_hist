@@ -88,7 +88,7 @@ def common_xlims(old_path, ref_path, order_list):
     for o in order_list:
         if (o.split('_')[1] == 'eff'):
             continue
-    
+
         old_bins = dio.load_dst(old_path, group_old[0], o).bins
         ref_bins = dio.load_dst(ref_path, group_ref[0], o).bins
         min_old, max_old = min(old_bins), max(old_bins)
@@ -101,31 +101,31 @@ def common_xlims(old_path, ref_path, order_list):
 #match the order in my code, I'll provide a list with the exact order they appear...
 #very messy, should change this
 hyp_order_list = ['S1_e', 'S1_total_e', 'S1_t', 'S1_total_t',
-'S1_t_weight_e', 'S2_e', 'S2_total_e', 'S2_t', 'S2_total_t', 
-'S2_t_weight_e', 'S1_e_PMT', 'S1_total_e_PMT', 'S1_PMT_weight_e', 
-'S2_e_PMT', 'S2_total_e_PMT', 'S2_PMT_weight_e', 'S2_e_Si', 
+'S1_t_weight_e', 'S2_e', 'S2_total_e', 'S2_t', 'S2_total_t',
+'S2_t_weight_e', 'S1_e_PMT', 'S1_total_e_PMT', 'S1_PMT_weight_e',
+'S2_e_PMT', 'S2_total_e_PMT', 'S2_PMT_weight_e', 'S2_e_Si',
 'S2_total_e_Si', 'S2_Si_weight_e']
 
-pen_order_list = ['dst_S1w', 'dst_S1h', 'dst_S1e', 'dst_nS1', 'dst_S2w', 
-'dst_S2h', 'dst_S2e', 'dst_S2q', 'dst_nS2', 'peak_X', 
-'peak_Xrms', 'peak_Y', 'peak_Yrms', 'peak_Z', 'peak_Zrms', 
-'peak_DT', 'peak_R', 'peak_qmax', 'peak_Phi', 'peak_Nsipm', 
-'hits_Q', 'hits_Q_peak', 'hits_E', 'hits_E_peak', 'hits_X', 
-'hits_X_weight_Q', 'hits_X_weight_E', 'hits_Y', 'hits_Y_weight_Q', 
-'hits_Y_weight_E', 'hits_Z', 'hits_Z_weight_Q', 'hits_Z_weight_E', 
+ire_order_list = hyp_order_list
+
+pen_order_list = ['dst_S1w', 'dst_S1h', 'dst_S1e', 'dst_nS1', 'dst_S2w',
+'dst_S2h', 'dst_S2e', 'dst_S2q', 'dst_nS2', 'peak_X',
+'peak_Xrms', 'peak_Y', 'peak_Yrms', 'peak_Z', 'peak_Zrms',
+'peak_DT', 'peak_R', 'peak_qmax', 'peak_Phi', 'peak_Nsipm',
+'hits_Q', 'hits_Q_peak', 'hits_E', 'hits_E_peak', 'hits_X',
+'hits_X_weight_Q', 'hits_X_weight_E', 'hits_Y', 'hits_Y_weight_Q',
+'hits_Y_weight_E', 'hits_Z', 'hits_Z_weight_Q', 'hits_Z_weight_E',
 'hits_n', 'hits_n_peak']
 
-esm_order_list = ['highTh_eff_cut', 'highTh_totE', 'highTh_Q', 'highTh_Q_peak', 
+esm_order_list = ['highTh_eff_cut', 'highTh_totE', 'highTh_Q', 'highTh_Q_peak',
 'highTh_E', 'highTh_E_peak', 'highTh_Ec', 'highTh_Ec_peak', 'highTh_X', 'highTh_X_weight_Q', 'highTh_X_weight_E',
-'highTh_Y', 'highTh_Y_weight_Q', 'highTh_Y_weight_E', 'highTh_Z', 'highTh_Z_weight_Q', 
-'highTh_Z_weight_E', 'highTh_n', 'highTh_n_peak', 
-'tracks_E', 'maintracks_E', 'tracks_L', 'maintracks_L', 'tracks_nhits', 'maintracks_nhits', 
-'tracks_nvox', 'maintracks_nvox', 'tracks_X', 'maintracks_X', 'tracks_Y', 'maintracks_Y', 
-'tracks_Z', 'maintracks_Z', 'tracks_R', 'maintracks_R', 'tracks_Rmax', 'maintracks_Rmax', 
-'tracks_eblob1', 'maintracks_eblob1', 'tracks_eblob2', 'maintracks_eblob2', 'tracks_ovlp', 
+'highTh_Y', 'highTh_Y_weight_Q', 'highTh_Y_weight_E', 'highTh_Z', 'highTh_Z_weight_Q',
+'highTh_Z_weight_E', 'highTh_n', 'highTh_n_peak',
+'tracks_E', 'maintracks_E', 'tracks_L', 'maintracks_L', 'tracks_nhits', 'maintracks_nhits',
+'tracks_nvox', 'maintracks_nvox', 'tracks_X', 'maintracks_X', 'tracks_Y', 'maintracks_Y',
+'tracks_Z', 'maintracks_Z', 'tracks_R', 'maintracks_R', 'tracks_Rmax', 'maintracks_Rmax',
+'tracks_eblob1', 'maintracks_eblob1', 'tracks_eblob2', 'maintracks_eblob2', 'tracks_ovlp',
 'maintracks_ovlp']
 
-bee_order_list = ['deco_totE', 'deco_E', 'deco_X', 'deco_X_weight_E', 'deco_Y', 
+bee_order_list = ['deco_totE', 'deco_E', 'deco_X', 'deco_X_weight_E', 'deco_Y',
 'deco_Y_weight_E', 'deco_Z', 'deco_Z_weight_E', 'deco_nhits']
-
-
