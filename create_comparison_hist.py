@@ -23,8 +23,8 @@ from city_hist.deco_hist   import deco_file_writer
 #NEEDED VARIABLES
 data_path = '/analysis/14776/hdf5/prod/' #path to old and refactor prod
 
-old_path = data_path +  'v2.1.0/20241114/'
-ref_path = data_path + 'masking/20241114/'
+old_path = data_path +  'v2.1.0/20241114/irene/trigger0/'
+ref_path = data_path + 'masking/20241114/irene/trigger0/'
 
 #cities forlders should be in lower case: hypathia, penthesilea/sophronia, esmeralda, beersheba, isaura
 cities = ['irene']
@@ -39,8 +39,8 @@ out_file = 'irene_comp.h5'
 
 #STARTUP
 #PICKING ALL THE FILES (OLD AND REFACTOR) TO RE-DO THE HISTOGRAMS
-old_files = old_path + '{city}/trigger0/ldc1/*.h5'
-ref_files = ref_path + '{city}/trigger0/ldc1/*.h5'
+old_files = old_path + 'ldc1/*.h5'
+ref_files = ref_path + 'ldc1/*.h5'
 
 out_path = data_path + out_file
 
