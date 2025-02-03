@@ -47,7 +47,7 @@ def pmaps_signal_histograms(files, signal, binlist, xrange = [None] * 5):
         S_t_weight_e.append(_S_t_weight_e)
 
 
-    return tuple(np.sum(a, axis=0) for a in (S_e, S_total_e, S_t, S_total_t, S_t_weight_e))
+    return tuple(pd.concat(a, ignore_index=True).groupby("bins").sum().reset_index() for a in (S_e, S_total_e, S_t, S_total_t, S_t_weight_e))
 
 
 def pmaps_sensor_histograms(files, signal, sensor, binlist, xrange = [None] * 3):
@@ -70,7 +70,7 @@ def pmaps_sensor_histograms(files, signal, sensor, binlist, xrange = [None] * 3)
         S_total_e_sensor.append(_S_total_e_sensor)
         S_sensor_weight_e.append(_S_sensor_weight_e)
 
-    return tuple(np.sum(a, axis=0) for a in (S_e_sensor, S_total_e_sensor, S_sensor_weight_e))
+    return tuple(pd.concat(a, ignore_index=True).groupby("bins").sum().reset_index() for a in (S_e_sensor, S_total_e_sensor, S_sensor_weight_e))
 
 
 def pmaps_file_writer(files_path, out_path, city = 'hypathia', tag = '', xrange = [None] * 19):
